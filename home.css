@@ -1,0 +1,77 @@
+.jotspotColor {
+	width: 25px;
+	height: 25px;
+	display: inline-block;
+	border: 2px solid #404040;
+	margin-top: -4px;
+}
+
+.jotspotColor:hover {
+	border: 2px solid #ddd;
+	cursor: pointer;
+}
+
+#jotspotColors {
+    width: 235px;
+    display: inline-block;
+    float: left;
+}
+
+#demo-app .panel.bgcolor th {
+	text-align: right;
+}
+
+#demo-app th {
+    font-weight: normal;
+    padding: 0 5px;
+}
+
+body {
+	font-family: "Open Sans";
+	background: #404040;
+	color: #ccc;
+}
+
+table {
+    display: table;
+    border-collapse: separate;
+    border-spacing: 2px;
+    border-color: grey;
+}
+
+#demo-app {
+	display: inline-block;
+	margin-left: 20px;
+}
+
+#demo-app .panel .red {
+    color: #F99;
+}
+
+#demo-app .panel .grn {
+    color: #9F9;
+}
+
+#demo-app .panel .blu {
+    color: #9CF;
+}
+
+#demo-app table input {
+    width: 10em;
+    color: #FFF;
+    border: 1px solid #999;
+    background: #262626;
+    padding: 2px 5px;
+}
+
+div#center {
+	margin: auto;
+	width: 428px;
+	margin-top: 200px;
+	border: 1px solid white;
+	padding: 22px 20px 38px 20px;
+}
+
+.closestMatch {
+	border: 2px solid #fff;
+}

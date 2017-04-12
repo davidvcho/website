@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Colors</title>
+	<!-- <script type="text/javascript" src="colors.js"></script> -->
+	<script src="jscolor.js"></script>
+	<link href='home.css' rel='stylesheet' type='text/css' media="screen">
+</head>
+<body>
+	<div id="center">
+	<div id='jotspotColors'></div>
+	<div id="demo-app">
+		
+		<div class="panel bgcolor">
+			<button id="bgcolor-button">Choose color</button>
+			<table>
+				<tbody>
+					<tr>
+						<th>RGB</th>
+						<td><input id="bgcolor-rgb" onchange="setString(this.value)"></td>
+					</tr>
+					<tr>
+						<th>HEX</th>
+						<td>
+							<input id="bgcolor-hex" onchange="setString(this.value)">
+						</td>
+					</tr>
+					<tr>
+						<th>H</th>
+						<td>
+							<input id="bgcolor-hue" class="short" onchange="setHSV(this.value, null, null)">
+						</td>
+					</tr>
+					<tr>
+						<th>S</th>
+						<td>
+							<input id="bgcolor-sat" class="short" onchange="setHSV(null, this.value, null)">
+						</td>
+					</tr>
+					<tr>
+						<th>V</th>
+						<td>
+							<input id="bgcolor-val" class="short" onchange="setHSV(null, null, this.value)">
+						</td>
+					</tr>
+					<tr class="red">
+						<th>R</th>
+						<td>
+							<input id="bgcolor-red" class="short" onchange="setRGB(this.value, null, null)">
+						</td>
+					</tr>
+					<tr class="grn">
+						<th>G</th>
+						<td>
+							<input id="bgcolor-grn" class="short" onchange="setRGB(null, this.value, null)">
+						</td>
+					</tr>
+					<tr class="blu">
+						<th>B</th>
+						<td>
+							<input id="bgcolor-blu" class="short" onchange="setRGB(null, null, this.value)">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</div>
+
+	<script>
+		if (!String.prototype.format) {
+		  String.prototype.format = function() {
+		    var args = arguments;
+		    return this.replace(/{(\d+)}/g, function(match, number) { 
+		      return typeof args[number] != 'undefined' ? args[number] : match
+		      ;
+		    });
+		  };
+		}
+
+		var COLORS = [
+			[0, 0, 0],
+			[68, 68, 68],
+			[102, 102, 102],
+			[153, 153, 153],
+			[204, 204, 204],
+			[238, 238, 238],
+			[243, 243, 243],
+			[255, 255, 255],
+			[255, 0, 0],
+			[255, 153, 0],
+			[255, 255, 0],
+			[0, 255, 0],
+			[0, 255, 255],
+			[0, 0, 255],
+			[153, 0, 255],
+			[255, 0, 255],
+			[244, 204, 204],
+			[252, 229, 205],
+			[255, 242, 204],
+			[217, 234, 211],
+			[208, 224, 227],
+			[207, 226, 243],
+			[217, 210, 233],
+			[234, 209, 220],
+			[234, 153, 153],
+			[249, 203, 156],
+			[255, 229, 153],
+			[182, 215, 168],
+			[162, 196, 201],
+			[159, 197, 232],
+			[180, 167, 214],
+			[213, 166, 189],
+			[224, 102, 102],
+			[246, 178, 107],
+			[255, 217, 102],
+			[147, 196, 125],
+			[118, 165, 175],
+			[111, 168, 220],
+			[142, 124, 195],
+			[194, 123, 160],
+			[204, 0, 0],
+			[230, 145, 56],
+			[241, 194, 50],
+			[106, 168, 79],
+			[69, 129, 142],
+			[61, 133, 198],
+			[103, 78, 167],
+			[166, 77, 121],
+			[153, 0, 0],
+			[180, 95, 6],
+			[191, 144, 0],
+			[56, 118, 29],
+			[19, 79, 92],
+			[11, 83, 148],
+			[53, 28, 117],
+			[116, 27, 71],
+			[102, 0, 0],
+			[120, 63, 4],
+			[127, 96, 0],
+			[39, 78, 19],
+			[12, 52, 61],
+			[7, 55, 99],
+			[32, 18, 77],
+			[76, 17, 48]
+		];
+
+		function rgbToHsv(rgb) {
+			var r = rgb[0] / 255.0;
+			var g = rgb[1] / 255.0;
+			var b = rgb[2] / 255.0;
+
+			var cmax = Math.max(r, g, b);
+			var cmin = Math.min(r, g, b);
+			var delta = cmax - cmin;
+
+			var h,s,v;
+			if (delta == 0) {
+				h = 0;
+			} else if (cmax == r) {
+				h = ((g - b) / delta) % 6;
+				if (h < 0) {
+					h += 6;
+				}
+			} else if (cmax == g) {
+				h = (b - r) / delta + 2;
+			} else {
+				h = (r - g) / delta + 4;
+			}
+			h = Math.round(h * 60);
+			s = Math.round(cmax == 0 ? 0 : (delta / cmax) * 100)
+			v = Math.round(cmax * 100) 
+
+			return [h, s, v];
+		}
+
+		var HSV_COLORS = COLORS.map(rgbToHsv);
+
+		var options = {
+			valueElement: null,
+			width: 300,
+			height: 120,
+			sliderSize: 20,
+			position: 'top',
+			borderColor: '#CCC',
+			insetColor: '#CCC',
+			backgroundColor: '#202020'
+		};
+
+		var bgcolor = new jscolor('bgcolor-button', options);
+		bgcolor.onFineChange = "update('bgcolor')";
+		bgcolor.fromString('AB2567');
+
+		function init() {
+			var jotspotColors = document.getElementById('jotspotColors');
+			for (var i = 0; i < COLORS.length; i++) {
+				c = COLORS[i];
+				var colorDiv = document.createElement('div');
+				colorDiv.classList.add('jotspotColor');
+				colorDiv.style.backgroundColor = 'rgb({0},{1},{2})'.format(c[0], c[1], c[2]);
+				colorDiv.id = 'color-' + i;
+
+				if (i % 8 == 0) {
+					colorDiv.style.clear = 'right';
+				}
+				jotspotColors.appendChild(colorDiv);
+
+				colorDiv.addEventListener("click", function() {
+					bgcolor.fromString(this.style.backgroundColor);
+					update()
+				});
+			}
+		}
+
+		init();
+
+		var lastChosen = null;
+
+		function update() {
+			document.getElementById('bgcolor-rgb').value = bgcolor.toRGBString();
+			document.getElementById('bgcolor-hex').value = bgcolor.toHEXString();
+
+			document.getElementById('bgcolor-hue').value = Math.round(bgcolor.hsv[0]);
+			document.getElementById('bgcolor-sat').value = Math.round(bgcolor.hsv[1]);
+			document.getElementById('bgcolor-val').value = Math.round(bgcolor.hsv[2]);
+
+			document.getElementById('bgcolor-red').value = Math.round(bgcolor.rgb[0]);
+			document.getElementById('bgcolor-grn').value = Math.round(bgcolor.rgb[1]);
+			document.getElementById('bgcolor-blu').value = Math.round(bgcolor.rgb[2]);
+
+			var id = 'color-' + findClosestMatch(bgcolor.hsv);
+			console.log(document.getElementById(id).style.backgroundColor);
+			document.getElementById(id).classList.add('closestMatch');
+			if (lastChosen != null && lastChosen != id) {
+				document.getElementById(lastChosen).classList.remove('closestMatch');
+			}
+			lastChosen = id;
+		}
+
+		function setHSV (h, s, v) {
+			bgcolor.fromHSV(h, s, v);
+			update();
+		}
+
+		function setRGB (r, g, b) {
+			bgcolor.fromRGB(r, g, b);
+			update();
+		}
+
+		function setString (str) {
+			bgcolor.fromString(str);
+			update();
+		}
+
+		update('bgcolor');
+
+		function distance(colorA, colorB) {
+			var weights = [0.475, 0.2875, 0.2375];
+			var sum = 0.0;
+			for (var i = 0; i < 3; i++) {
+				sum += Math.pow(colorA[i] - colorB[i], 2) * weights[i];
+			}
+			return sum;
+		}
+
+		function findClosestMatch(hsv) {
+			return HSV_COLORS.map(function(c) { return distance(c, hsv)})
+				.reduce((iMin, x, i, arr) => x < arr[iMin] ? i : iMin, 0);
+		}
+	</script>
+</body>
+</html>
