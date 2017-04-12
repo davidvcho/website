@@ -188,15 +188,19 @@
 
 		var bgcolor = new jscolor('bgcolor-button', options);
 		bgcolor.onFineChange = "update('bgcolor')";
-		bgcolor.fromString('AB2567');
+
+		bgcolor.fromString(getRgbStyle(COLORS[Math.floor(Math.random() * COLORS.length)]));
+
+		function getRgbStyle(rgb) {
+			return 'rgb({0},{1},{2})'.format(rgb[0], rgb[1], rgb[2]);
+		}
 
 		function init() {
 			var jotspotColors = document.getElementById('jotspotColors');
 			for (var i = 0; i < COLORS.length; i++) {
-				c = COLORS[i];
 				var colorDiv = document.createElement('div');
 				colorDiv.classList.add('jotspotColor');
-				colorDiv.style.backgroundColor = 'rgb({0},{1},{2})'.format(c[0], c[1], c[2]);
+				colorDiv.style.backgroundColor = getRgbStyle(COLORS[i]);
 				colorDiv.id = 'color-' + i;
 
 				if (i % 8 == 0) {
