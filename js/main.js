@@ -32,8 +32,6 @@ var createDiv = function() {
 	return document.createElement('div');
 }
 
-
-
 var addMobileNavClickHandlers = function() {
 	// Handler for navbar toggle button
 	document.getElementById('mobileMenu').onclick = function() {
