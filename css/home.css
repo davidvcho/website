@@ -1,0 +1,24 @@
+section {
+    margin-bottom: -10px;
+    height: calc(100vh - 63px/* - 144px*/);
+}
+
+section #main-img {
+    width: 100%;
+    background-position: center;
+    height: auto;
+}
+
+.fluid-image-resize {
+    max-width: 5992px;
+    background-size: cover;
+    background-position: center;
+    min-height: 625px;
+}
+.fluid-image-resize:after {
+    content: " ";
+    display: block; 
+    width: 100%; 
+    padding-top: 15.918%; /* slope */
+    height: 452.786px; /* start height */
+}

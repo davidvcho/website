@@ -1,0 +1,26 @@
+body {
+    margin: 0;
+    height: 100%;
+}
+
+.site-wrapper {
+    background-color: #fff;
+    overflow: hidden;
+}
+
+@media only screen and (max-width:  768px) {
+    .site-inner-wrapper {
+        position: relative;
+    }
+
+    .site-wrapper {
+        -moz-transition: all .3s ease;
+        -webkit-transition: all .3s ease;
+        height: 99%;
+        margin: 0 auto;
+        padding: 0;
+        position: relative;
+        transition: all .3s ease;
+        z-index: 3;
+    }
+}
