@@ -13,6 +13,11 @@
     src: url('../fonts/LatoLatin-Regular.ttf');
 }
 
+@font-face {
+    font-family: 'brandon';
+    src: url('../fonts/Brandon_reg.otf');
+}
+
 body, html {
   height: 100%;
   margin: 0;
@@ -61,9 +66,16 @@ body, html {
     max-width: 960px;
     margin: auto;
     font-family: 'lato-regular';
-    padding: 50px 8%;
+    padding: 50px 8% 80px 8%;
 }
 
-h2 {
-    font-family: 'lato-thin';
+h1 {
+    font-family: 'brandon';
+    font-style: italic;
+    line-height: 1.2em;
+    text-transform: none;
+}
+
+.content div {
+    text-align: center;
 }
