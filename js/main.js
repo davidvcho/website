@@ -5,13 +5,34 @@ window.onload = function() {
 var init = function() {
 	addMobileNavClickHandlers();
 	addBackToTopHandler();
+
+	injectCopyright();
 }
 
 var addBackToTopHandler = function() {
-	document.getElementById('back-to-top').onclick = function() {
-		$("html, body").animate({scrollTop: 0}, 500);
+	var backToTop = document.getElementById('back-to-top');
+	if (backToTop) {
+		backToTop.onclick = function() {
+			$("html, body").animate({scrollTop: 0}, 500);
+		}	
 	}
 }
+
+var injectCopyright = function() {
+	var copyright = createDiv();
+	copyright.classList.add('copyright');
+	copyright.innerText = '\u00A9 2017 David Cho \u00B7 All Rights Reserved \u00B7'
+
+	var filename = document.location.pathname.substring(location.pathname.lastIndexOf("/") + 1);
+	var element = filename.startsWith('index') ? document.getElementsByClassName('site-inner-wrapper')[0] : document.body;
+	element.appendChild(copyright);
+}
+
+var createDiv = function() {
+	return document.createElement('div');
+}
+
+
 
 var addMobileNavClickHandlers = function() {
 	// Handler for navbar toggle button

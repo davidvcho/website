@@ -42,6 +42,7 @@ table {
 #demo-app {
 	display: inline-block;
 	margin-left: 20px;
+	width: 173px;
 }
 
 #demo-app .panel .red {
