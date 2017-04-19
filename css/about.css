@@ -24,7 +24,7 @@ body, html {
 }
 
 .site-wrapper {
-    background-image: url('../images/about-compressed.jpg');
+    background-image: url('../images/about.jpg');
     min-height: 100%;
     position: relative;
     opacity: 0.95;
