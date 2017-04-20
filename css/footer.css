@@ -8,7 +8,7 @@
     src: url('../fonts/squarespace-ui-font.ttf');
 }
 
-#footer {
+.footer {
     width: 100%;
     background-color: #f5f5f5;
     position: relative;

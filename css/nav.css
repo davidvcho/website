@@ -10,14 +10,14 @@
 
 /* Header */
 
-#header {
+.header {
     background-color: #fff;
     position: relative;
     width: 100%;
     z-index: 8001;
 }
 
-#header .site-title {
+.header .site-title {
     color: #1c1c1c;
     display: table-cell;
     font-family: 'brandon';
@@ -36,7 +36,7 @@
     z-index: 8002;
 }
 
-#header .site-title a {
+.header .site-title a {
     color: #1c1c1c;
     cursor: auto;
     text-decoration: none;
@@ -44,20 +44,20 @@
 
 /* Desktop Nav */
 
-#desktopNav {
+.desktopNav {
     display: table-cell;
     text-align: right;
     vertical-align: middle;
     width: 70%;
 }
 
-#desktopNav .folder {
+.desktopNav .folder {
     box-sizing: border-box;
     cursor: pointer;
     position: relative;
 }
 
-#desktopNav .folder .folder-child-wrapper {
+.desktopNav .folder .folder-child-wrapper {
     background-color: #fff;
     left: 50%;
     margin-left: -100px;
@@ -66,7 +66,7 @@
     z-index: 11;
 }
 
-#desktopNav .folder .folder-child-wrapper ul.folder-child {
+.desktopNav .folder .folder-child-wrapper ul.folder-child {
     border-style: solid;
     border-width: 1px;
     box-sizing: border-box;
@@ -79,7 +79,7 @@
     width: 200px;
 }
 
-#desktopNav .folder .folder-child-wrapper ul.folder-child li {
+.desktopNav .folder .folder-child-wrapper ul.folder-child li {
     border-width: 0 0 1px;
     display: inline-block;
     text-align: center;
@@ -90,20 +90,20 @@
     border-style: solid;
 }
 
-#desktopNav .folder .folder-child-wrapper ul.folder-child li a {
+.desktopNav .folder .folder-child-wrapper ul.folder-child li a {
     display: inline-block;
     padding: 12px;
 }
 
-#desktopNav .folder:hover ul.folder-child {
+.desktopNav .folder:hover ul.folder-child {
     display: block;
 }
 
-#desktopNav .folder:hover .folder-child-wrapper {
+.desktopNav .folder:hover .folder-child-wrapper {
     padding-top: 30px;
 }
 
-#desktopNav .folder:hover ul.folder-child:before {
+.desktopNav .folder:hover ul.folder-child:before {
     content: '';
     display: block;
     width: 0;
@@ -120,7 +120,7 @@
 
 /* Mobile Nav */
 
-#mobileNav, #mobileMenu {
+.mobileNav, #mobileMenu {
     display: none;
     visibility: hidden;
 }
@@ -159,7 +159,7 @@
     text-transform: uppercase;
 }
 
-.main-nav ul li a, #desktopNav .folder-child-wrapper li:not(.active-link) a {
+.main-nav ul li a, .desktopNav .folder-child-wrapper li:not(.active-link) a {
     color: rgba(196,196,196,.7);
 }
 
@@ -217,11 +217,11 @@
 }
 
 @media only screen and (max-width:  768px) {
-	#desktopNav {
+	.desktopNav {
 	    display: none;
 	}
 
-	#mobileNav .main-nav .nav-wrapper {
+	.mobileNav .main-nav .nav-wrapper {
         -moz-transition: none .2s .5s linear;
         -o-transition: none .2s .5s linear;
         -webkit-transition: none .2s .5s linear;
@@ -236,7 +236,7 @@
         width: 79%;
     }
 
-    .mobile-nav-open #mobileNav .main-nav .nav-wrapper {
+    .mobile-nav-open .mobileNav .main-nav .nav-wrapper {
         position: fixed;
         top: 0;
         bottom: 0;
@@ -257,7 +257,7 @@
         transform: translate3d(-79%,0,0);
     }
 
-    #mobileNav ul {
+    .mobileNav ul {
         font-family: brandon;
         font-size: 15px;
         font-style: normal;
@@ -270,11 +270,11 @@
         text-transform: uppercase;
     }
 
-    .mobile-nav-open #mobileNav {
+    .mobile-nav-open .mobileNav {
         position: relative;
     }
 
-    #mobileNav ul li {
+    .mobileNav ul li {
         border-style: solid;
         border-width: 0 0 1px;
         color: #f5f5f5;
@@ -286,25 +286,25 @@
         z-index: 4;
     }
 
-    #mobileNav ul li a, #mobileNav ul li a:visited {
+    .mobileNav ul li a, .mobileNav ul li a:visited {
         color: rgba(196,196,196,.7);
         display: block;
         padding: 20px;
     }
 
-    #mobileNav ul li.folder ul {
+    .mobileNav ul li.folder ul {
         display: none;
     }
 
-    #mobileNav ul li.folder ul li {
+    .mobileNav ul li.folder ul li {
         border-bottom-width: 0;
     }
 
-    #mobileNav ul li.folder.dropdown-open ul {
+    .mobileNav ul li.folder.dropdown-open ul {
         display: block;
     }
 
-    #mobileNav ul li .folder-parent > a:first-child:before {
+    .mobileNav ul li .folder-parent > a:first-child:before {
         content: '+';
         margin-right: .25em;
         font-size: 14.399999999999999px;
@@ -312,11 +312,11 @@
         display: inline-block;
     }
 
-    #mobileNav ul li .active-link > a, #mobileNav ul li .active-link > a:visited {
+    .mobileNav ul li .active-link > a, .mobileNav ul li .active-link > a:visited {
         color: #1c1c1c;
     }
 
-    #mobileNav, #mobileMenu {
+    .mobileNav, #mobileMenu {
         display: block;
         position: relative;
         color: rgba(196,196,196,.7);
@@ -329,7 +329,7 @@
         width: 20%;
     }
 
-    #header .site-title {
+    .header .site-title {
         font-size: 13px;
         width: 80%;
     }
