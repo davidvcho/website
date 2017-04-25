@@ -1,0 +1,71 @@
+
+body, html {
+  height: 100%;
+  margin: 0;
+}
+
+.banner-wrapper {
+    position: relative;
+    height: 460px;
+    max-height: 460px;
+    top: -75px;
+}
+
+.banner-image {
+    background-color: #fff;
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
+}
+
+.banner-image img {
+    top: 0px;
+    left: -101px;
+    width: 1643px;
+    height: 460px;
+    position: relative;
+    transform: translate3d(0px, 44px, 0px);
+}
+
+.page-title-wrapper {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+}
+
+.page-title {
+    font-family: "bebas-neue";
+    font-size: 72px;
+    line-height: .9em;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin: 0;
+    color: #fff;
+    position: relative;
+    letter-spacing: 0.2em;
+    padding-top: 236px;
+}
+
+@media only screen and (max-width: 768px) {
+    .banner-wrapper {
+        height: 180px;
+    }
+    .page-title {
+        padding-top: 101px;
+    }
+    .site-wrapper {
+        height: auto;
+    }
+}
+
+@media only screen and (min-width: 769px) and (max-width: 1280px) {
+    .banner-wrapper {
+        height: 327px;
+    }
+    .page-title {
+        padding-top: 168px;
+    }
+}

@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'bebas-neue';
+    src: url('../fonts/BebasNeue.otf');
+}
+
 body {
     margin: 0;
     height: 100%;
