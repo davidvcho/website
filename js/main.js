@@ -11,6 +11,17 @@ var init = function() {
 
 	addMobileNavClickHandlers();
 	addBackToTopHandler();
+
+	var li = document.getElementsByClassName('desktop-folders-collection')[0];
+	if (containsChildWithCssName(li, 'active-link')) {
+		li.classList.add('active-link');
+		li.onmouseover = function() {
+			this.classList.remove('active-link');
+		}
+		li.onmouseout = function() {
+			this.classList.add('active-link');
+		}
+	}
 }
 
 var addBackToTopHandler = function() {
@@ -84,6 +95,19 @@ var getNavigation = function(isDesktop) {
 	return div;
 }
 
+var containsChildWithCssName = function(parent, cssName) {
+	var children = parent.childNodes;
+	for (var i = 0; i < children.length; i++) {
+		var child = children[i];
+		if (child.classList && child.classList.contains(cssName)) {
+			return true;
+		} else if (containsChildWithCssName(child, cssName)) {
+			return true;
+		}
+	}
+	return false;
+}
+
 var createLinkWithSpan = function(href, name) {
 	var a = createLink(href);
 	a.appendChild(createSpan('', name));
@@ -117,20 +141,14 @@ var injectFooter = function() {
 	var navDiv = createDiv('nav-div');
 
 	var iconList = createNav('icon-list');
-	var icons = [{
-		'src': 'images/logos/facebook.svg', 
-		'href': 'https://facebook.com/itzdcho'
-	}, {
-		'src': 'images/logos/instagram.png', 'href': 'http://instagram.com/dcho.i.am'
-	}, {
-		'src': 'images/logos/linkedin.svg', 'href': 'https://www.linkedin.com/in/davidvcho'
-	}, {
-		'src': 'images/logos/mail.svg', 'href': 'mailto:davidcho420@gmail.com'
-	}];
-
-	icons.forEach(function(i) {
-		iconList.appendChild(createImgLink(i.src, i.href, 'icon-wrapper'));
-	});
+	iconList.appendChild(getFooterImgLink(
+		'images/logos/facebook.svg', 'https://facebook.com/itzdcho'));
+	iconList.appendChild(getFooterImgLink(
+		'images/logos/instagram.png', 'http://instagram.com/dcho.i.am'));
+	iconList.appendChild(getFooterImgLink(
+		'images/logos/linkedin.svg', 'https://www.linkedin.com/in/davidvcho'));
+	iconList.appendChild(getFooterImgLink(
+		'images/logos/mail.svg', 'mailto:davidcho420@gmail.com'));
 
 	navDiv.appendChild(iconList);
 	footerWrapper.appendChild(navDiv);
@@ -140,6 +158,10 @@ var injectFooter = function() {
 		document.getElementsByClassName('site-inner-wrapper')[0] : 
 		document.body;
 	element.appendChild(footer);
+}
+
+var getFooterImgLink = function(src, href) {
+	return createImgLink(src, href, 'icon-wrapper');
 }
 
 var getBackToTop = function() {
@@ -228,7 +250,8 @@ var addMobileNavClickHandlers = function() {
 	}
 
 	// Handlers for nav folders
-	var elements = document.getElementsByClassName("mobile-folders-collection");
+	var elements = 
+		document.getElementsByClassName("mobile-folders-collection");
 	for (var i = 0, len = elements.length; i < len; i++) {
 	  elements[i].onclick = function() {
 	  	this.classList.toggle('dropdown-open');
