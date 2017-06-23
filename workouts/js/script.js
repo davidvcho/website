@@ -101,7 +101,7 @@ var createMonth = function(month, x) {
 	var text = createText();
 	text.classList.add('svg-text-month');
 	text.innerHTML = month
-	text.setAttribute('x', 120 + 78 * x);
+	text.setAttribute('x', 115 + 79 * x);
 	text.setAttribute('y', 12);
 	text.setAttribute('fill', '#888888');
 	return text;
