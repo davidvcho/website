@@ -26,14 +26,22 @@ var createSvg = function(year) {
 		labels.appendChild(createDay(days[i], 15.2 + i * 18));
 	}
 
+	// var temp = createGroup();
 	var dates = createGroup();
 	var date = new Date(year, 0, 1);
 	var week = 0;
 	while (date.getFullYear() == year) {
-		dates.appendChild(createDate(date, date.getDay(), week));
+		dates.appendChild(createDate(date, date.getDay(), week, dates));
 		date.setDate(date.getDate() + 1);
 		if (date.getDay() == 0) {
 			week++;
+		}	
+	}
+
+	dates.onmouseleave = function() {
+		var el = document.getElementById('hover-rect');
+		if (el) {
+			dates.removeChild(el);
 		}
 	}
 
@@ -41,6 +49,8 @@ var createSvg = function(year) {
 	for (var i = 11; i >= 0; i--) {
 		paths.appendChild(createPath(year, i));	
 	}
+
+
 	
 
 	// var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -81,7 +91,7 @@ var createDay = function(day, y) {
 	return text;
 }
 
-var createDate = function(date, row, col) {
+var createDate = function(date, row, col, dates) {
 	var rect = document.createElementNS(svgNS, 'rect');
 	rect.classList.add('svg-text-date');
 	rect.setAttribute('width', 18);
@@ -100,6 +110,29 @@ var createDate = function(date, row, col) {
 		rect.setAttribute('style', 'fill: #c9dcfb');	
 	} else {
 		rect.setAttribute('style', 'fill: url(#_ABSTRACT_RENDERER_ID_0)');	
+	}
+
+	rect.onmouseenter = function() {
+		var el = document.getElementById('hover-rect');
+		if (el) {
+			dates.removeChild(el);
+		}
+
+		var r = document.createElementNS(svgNS, 'rect');
+		r.setAttribute('width', 18);
+		r.setAttribute('height', 18);
+		if (dateSet.has(dateString)) {
+			r.setAttribute('style', 'fill: transparent');
+		} else {
+			r.setAttribute('style', 'fill: #fff');
+		}
+		
+		r.setAttribute('stroke', '#000');
+		r.setAttribute('stroke-width', 2);
+		r.setAttribute('x', getX(col));
+		r.setAttribute('y', getY(row));
+		r.setAttribute('id', 'hover-rect');
+		dates.appendChild(r);
 	}
 
 	return rect;
