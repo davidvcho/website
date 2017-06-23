@@ -124,8 +124,6 @@ var createDate = function(date, row, col, dates) {
 			document.getElementById(d.getFullYear()).removeChild(document.getElementById('activity-date'));
 		}
 
-
-
 		var r = document.createElementNS(svgNS, 'rect');
 		r.setAttribute('width', 18);
 		r.setAttribute('height', 18);
@@ -146,7 +144,11 @@ var createDate = function(date, row, col, dates) {
 		div.setAttribute('id', 'activity-date');
 		div.innerHTML = d.toDateString().substring(4);
 		div.style.left = getX(col) + 68 + document.getElementById('activity').getBoundingClientRect().left + 'px';
-		div.style.top = getY(row) + 89 + 155 * (d.getFullYear() - 2015) + 'px';
+		var top = getY(row) + 89 + 155 * (d.getFullYear() - 2015);
+		if (d.getFullYear() == 2015 && d.getDay() < 2) {
+			top += 70;
+		}
+		div.style.top = top + 'px';
 		document.getElementById(d.getFullYear()).appendChild(div);
 	}
 
