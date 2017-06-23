@@ -145,7 +145,7 @@ var createDate = function(date, row, col, dates) {
 		var div = document.createElement('div');
 		div.setAttribute('id', 'activity-date');
 		div.innerHTML = d.toDateString().substring(4);
-		div.style.left = getX(col) + 84 + 'px';
+		div.style.left = getX(col) + 68 + document.getElementById('activity').getBoundingClientRect().left + 'px';
 		div.style.top = getY(row) + 89 + 155 * (d.getFullYear() - 2015) + 'px';
 		document.getElementById(d.getFullYear()).appendChild(div);
 	}
