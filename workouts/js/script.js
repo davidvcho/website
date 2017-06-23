@@ -18,7 +18,7 @@ var init = function() {
 
 var createSvg = function(year) {
 	var svg = document.createElementNS(svgNS, 'svg');
-	svg.setAttribute('height', '143');
+	svg.setAttribute('height', '145');
 	svg.setAttribute('width', '1118');
 
 	var labels = createGroup();
