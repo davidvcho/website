@@ -8,9 +8,13 @@ window.onload = function() {
 
 var init = function() {
 	var activity = document.getElementById('activity');
-	activity.appendChild(createSvg(2015));
-	activity.appendChild(createSvg(2016));
-	activity.appendChild(createSvg(2017));
+
+	for (var i = 2015; i < 2018; i++) {
+		var div = createDiv(i);
+		// div.classList.add('activity-date');
+		div.appendChild(createSvg(i));
+		activity.appendChild(div);
+	}
 }
 
 var createSvg = function(year) {
@@ -42,6 +46,7 @@ var createSvg = function(year) {
 		var el = document.getElementById('hover-rect');
 		if (el) {
 			dates.removeChild(el);
+			document.getElementById(year).removeChild(document.getElementById('activity-date'));
 		}
 	}
 
@@ -116,7 +121,10 @@ var createDate = function(date, row, col, dates) {
 		var el = document.getElementById('hover-rect');
 		if (el) {
 			dates.removeChild(el);
+			document.getElementById(d.getFullYear()).removeChild(document.getElementById('activity-date'));
 		}
+
+
 
 		var r = document.createElementNS(svgNS, 'rect');
 		r.setAttribute('width', 18);
@@ -133,6 +141,13 @@ var createDate = function(date, row, col, dates) {
 		r.setAttribute('y', getY(row));
 		r.setAttribute('id', 'hover-rect');
 		dates.appendChild(r);
+
+		var div = document.createElement('div');
+		div.setAttribute('id', 'activity-date');
+		div.innerHTML = d.toDateString().substring(4);
+		div.style.left = getX(col) + 84 + 'px';
+		div.style.top = getY(row) + 89 + 155 * (d.getFullYear() - 2015) + 'px';
+		document.getElementById(d.getFullYear()).appendChild(div);
 	}
 
 	return rect;
@@ -184,7 +199,6 @@ var createPath = function(year, month) {
 	weeks += (last.getDate() - first.getDate()) / 7;
 	var x2 = getX(weeks+1);
 	pathString += vertical(y2) + horizontal(x2);
-	// console.log(pathString);
 
 	last = new Date(year, month + 1, 1);
 	last.setDate(last.getDate() - 1);
@@ -203,8 +217,6 @@ var createPath = function(year, month) {
 		path.setAttribute('stroke', '#c9c9c9');
 	}
 
-	
-	
 	path.setAttribute('stroke-width', 1);
 	path.setAttribute('fill', 'none');
 	path.setAttribute('d', pathString);
@@ -265,4 +277,10 @@ var createLine = function(x1, y1, x2, y2) {
 	line.setAttribute('x2', x2);
 	line.setAttribute('y2', y2);
 	return line;
+}
+
+var createDiv = function(id) { 
+	var div = document.createElement('div');
+	div.setAttribute('id', id);
+	return div;
 }

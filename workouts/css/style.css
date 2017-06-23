@@ -43,3 +43,15 @@ svg {
 .svg-text-month {
 	font-size: 14px;
 }
+
+#activity-date {
+	padding: 8px;
+    border: 1px solid #bdbdbd;
+    width: 80px;
+    text-align: center;
+    border-radius: 2px;
+    font-size: 12px;
+    color: #616161;
+    background-color: white;
+    position: absolute;
+}
