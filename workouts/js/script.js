@@ -11,7 +11,6 @@ var init = function() {
 
 	for (var i = 2015; i < 2018; i++) {
 		var div = createDiv(i);
-		// div.classList.add('activity-date');
 		div.appendChild(createSvg(i));
 		activity.appendChild(div);
 	}
@@ -19,7 +18,7 @@ var init = function() {
 
 var createSvg = function(year) {
 	var svg = document.createElementNS(svgNS, 'svg');
-	svg.setAttribute('height', '130');
+	svg.setAttribute('height', '143');
 	svg.setAttribute('width', '1118');
 
 	var labels = createGroup();
@@ -27,9 +26,16 @@ var createSvg = function(year) {
 
 	var days = 'SMTWTFS';
 	for (var i = 0; i < days.length; i++) {
-		labels.appendChild(createDay(days[i], 15.2 + i * 18));
+		labels.appendChild(createDay(days[i], 30.2 + i * 18));
 	}
 
+	if (year == 2015) {
+		var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+		for (var i = 0; i < months.length; i++) {
+			labels.appendChild(createMonth(months[i], i));
+		}	
+	}
+	
 	// var temp = createGroup();
 	var dates = createGroup();
 	var date = new Date(year, 0, 1);
@@ -55,11 +61,6 @@ var createSvg = function(year) {
 		paths.appendChild(createPath(year, i));	
 	}
 
-
-	
-
-	// var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
 	svg.appendChild(createDefs());
 	svg.appendChild(labels);
 	svg.appendChild(dates);
@@ -79,7 +80,7 @@ var createYear = function(year) {
 	var text = createText();
 	text.classList.add('svg-text-year');
 	text.innerHTML = year;
-	text.setAttribute('x', 106);
+	text.setAttribute('x', 91);
 	text.setAttribute('y', 122);
 	text.setAttribute('transform', 'rotate(270 47.6 121.99999999999999)');
 	text.setAttribute('fill', '#dfdfdf');
@@ -92,6 +93,16 @@ var createDay = function(day, y) {
 	text.innerHTML = day
 	text.setAttribute('x', 61.5);
 	text.setAttribute('y', y);
+	text.setAttribute('fill', '#888888');
+	return text;
+}
+
+var createMonth = function(month, x) {
+	var text = createText();
+	text.classList.add('svg-text-month');
+	text.innerHTML = month
+	text.setAttribute('x', 120 + 78 * x);
+	text.setAttribute('y', 12);
 	text.setAttribute('fill', '#888888');
 	return text;
 }
@@ -160,7 +171,7 @@ var getX = function(col) {
 }
 
 var getY = function(row) { 
-	return 2 + 18 * row;
+	return 17 + 18 * row;
 }
 
 var createSvgElement = function(cssName) {

@@ -25,7 +25,7 @@ body {
 }
 
 svg {
-	margin-bottom: 20px;
+	margin-bottom: 7px;
 }
 
 .svg-text {
@@ -38,6 +38,10 @@ svg {
 
 .svg-text-day {
 	font-size: 12px;
+}
+
+.svg-text-month {
+	font-size: 14px;
 }
 
 .svg-text-month {
