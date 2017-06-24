@@ -63,6 +63,11 @@ Date.prototype.roundDown = function() {
     return new Date(this).incrementDays(-this.getDay());
 }
 
+Date.prototype.toSlashString = function() {
+    return '{0}/{1}/{2}'
+        .format(this.getMonth() + 1, this.getDate(), this.getFullYear() % 100);
+}
+
 /** Helper class to create HTML elements. */
 function Element() {
 	this.svgNS_ = "http://www.w3.org/2000/svg";
@@ -163,22 +168,22 @@ var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
               'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
 var createCalendar = function(year) {
-	var labels = element.createSvgGroup().add(createYear(year));
+	var labels = element.createSvgGroup().add(createYearLabel(year));
 
     if (year == 2015) { 
         for (var i = 0; i < MONTHS.length; i++) {
-            labels.add(createMonth(MONTHS[i], i));
+            labels.add(createMonthLabel(MONTHS[i], i));
         }
     }
 
 	for (var i = 0; i < DAYS.length; i++) {
-		labels.add(createDay(DAYS[i], 30.2 + i * 18));
+		labels.add(createDayLabel(DAYS[i], 30.2 + i * 18));
 	}
 	
 	var dates = element.createSvgGroup();
 	var date = new Date(year, 0 /** month */);
     do {
-        dates.add(createDate(date, dates));
+        dates.add(createDateSquare(date, dates));
     } while (date.incrementDays().getFullYear() == year);
 
 	dates.onmouseleave = function() {
@@ -208,85 +213,80 @@ var createTextElement = function(text, className, x, y) {
         .attr('y', y);
 };
 
-var createYear = function(year) {
+var createYearLabel = function(year) {
     return createTextElement(year, 'svg-text-year', 91, 122);
 };
 
-var createMonth = function(month, x) {
+var createMonthLabel = function(month, x) {
     return createTextElement(month, 'svg-text-month', 115 + 79 * x, 12);
 };
 
-var createDay = function(day, y) {
+var createDayLabel = function(day, y) {
     return createTextElement(day, 'svg-text-day', 61.5, y);
 };
 
-var createDate = function(date, dates) {
-    var row = date.getDay();
-    var col = date.getWeek();
+var createDateSquare = function(date, container) {
+    // Prevent date from changing within the scope of this function. 
+    date = new Date(date);
 
-	var rect = element.createSvgRect();
-	rect.classList.add('svg-text-date');
-	rect.setAttribute('width', 18);
-	rect.setAttribute('height', 18);
-	rect.setAttribute('stroke', '#ffffff');
-	rect.setAttribute('stroke-width', 1);
-	rect.setAttribute('x', getX(col));
-	rect.setAttribute('y', getY(row));
-	
+    var x = getX(date.getWeek());
+    var y = getY(date.getDay());
 
-	var d = new Date(date);
-	var dateString = (d.getMonth() + 1) + '/' + d.getDate() + '/' + d.getFullYear() % 100;
+    var isActive = dateSet.has(date.toSlashString());
 
-	if (dateSet.has(dateString)) {
-		rect.setAttribute('style', 'fill: #c9dcfb');	
-	} else {
-		rect.setAttribute('style', 'fill: url(#_ABSTRACT_RENDERER_ID_0)');	
-	}
+	var rect = element.createSvgRect()
+	   .addCssClass('svg-text-date')
+	   .attr('width', 18)
+	   .attr('height', 18)
+	   .attr('stroke', '#ffffff')
+	   .attr('stroke-width', 1)
+       .attr('fill', isActive ? '#c9dcfb' : 'url(#_ABSTRACT_RENDERER_ID_0)')
+	   .attr('x', x)
+	   .attr('y', y);
 
 	rect.onmouseenter = function() {
-		var el = document.getElementById('hover-rect');
-		if (el) {
-			dates.removeChild(el);
-			document.getElementById(d.getFullYear()).removeChild(document.getElementById('activity-date'));
+        var year = date.getFullYear();
+        // Remove existing hovering popups.
+		if (getElementById('hover-rect')) {
+			container.removeLastChild();
+			getElementById(year).removeLastChild();
 		}
 
-		var r = element.createSvgRect();
-		r.setAttribute('width', 18);
-		r.setAttribute('height', 18);
-		if (dateSet.has(dateString)) {
-			r.setAttribute('style', 'fill: transparent');
-		} else {
-			r.setAttribute('style', 'fill: #fff');
-		}
-		
-		r.setAttribute('stroke', '#000');
-		r.setAttribute('stroke-width', 2);
-		r.setAttribute('x', getX(col));
-		r.setAttribute('y', getY(row));
-		r.setAttribute('id', 'hover-rect');
-		dates.appendChild(r);
+        // Add highlighted box.
+        container.add(
+            element.createSvgRect() 
+                .setId('hover-rect')
+                .attr('width', 18)
+                .attr('height', 18)
+                .attr('fill', isActive ? 'transparent' : '#fff')
+                .attr('stroke', '#000')
+                .attr('stroke-width', 2)
+                .attr('x', x)
+                .attr('y', y));
 
-		var div = document.createElement('div');
-		div.setAttribute('id', 'activity-date');
-		div.innerHTML = d.toDateString().substring(4);
-		div.style.left = getX(col) + 68 + document.getElementById('activity').getBoundingClientRect().left + 'px';
-		var top = getY(row) + 89 + 155 * (d.getFullYear() - 2015);
-		if (d.getFullYear() == 2015 && d.getDay() < 2) {
-			top += 70;
-		}
-		div.style.top = top + 'px';
-		document.getElementById(d.getFullYear()).appendChild(div);
+        var left = 
+            x + 68 + getElementById('activity').getBoundingClientRect().left;
+		var top = y + 89 + 155 * (year - 2015) +
+            70 * (year == 2015 && date.getDay() < 2);
+
+		getElementById(year).add(
+            document.createElement('div')
+                .setId('activity-date')
+                .setText(date.toDateString().substring(4))
+                .attr('style', 'left: {0}px; top: {1}px'.format(left, top)));
 	}
 
 	return rect;
 };
 
-var getX = function(col) {
-	return 71 + 18 * col;
+/** Computes x coordinate of the square representing a date at this week. */
+var getX = function(week) {
+	return 71 + 18 * week;
 };
 
-var getY = function(row) { 
-	return 17 + 18 * row;
+/** Computes y coordinate of the square representing a date at this day. */
+var getY = function(day) { 
+	return 17 + 18 * day;
 };
 
 var createMonthOutline = function(year, month) {
