@@ -55,6 +55,11 @@ Node.prototype.removeLastChild = function() {
     this.removeChild(this.lastChild);
 };
 
+Node.prototype.addStyle = function(name, value) {
+    this.style.setProperty(name, value);
+    return this;
+};
+
 /*******************************************************************************
  *                                                                             *
  *                                    DATE                                     *
@@ -311,7 +316,8 @@ Calendar.prototype = {
                 document.createElement('div')
                     .setId('activity-date')
                     .setText(date.toDateString().substring(4))
-                    .attr('style', 'left:{0}px; top:{1}px'.format(left, top)));
+                    .addStyle('left', left + 'px')
+                    .addStyle('top', top + 'px'));
         }.bind(this);
         return rect;
     },
@@ -422,3 +428,7 @@ var getYearRange = function() {
     var years = [...set].sort().map(year => '20' + year);
     return [years[0], years[years.length - 1]];
 };
+
+
+
+// TODO Create pie chart of days
