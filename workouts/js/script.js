@@ -39,8 +39,10 @@ Element.prototype = {
 	createSvgElement_: function(tagName) {
 		return document.createElementNS(this.svgNS_, tagName);
 	},
-	createSvg: function() {
-		return this.createSvgElement_('svg');
+	createSvg: function(width, height) {
+		return this.createSvgElement_('svg')
+            .attr('width', width)
+            .attr('height', height);
 	},
 	createSvgLine: function(x1, y1, x2, y2) {
 		return this.createSvgElement_('line')
@@ -68,7 +70,7 @@ Element.prototype = {
 	},
 	createSvgPattern: function() {
 		return this.createSvgElement_('pattern');
-	}
+	},
 };
 
 var element = new Element();
@@ -79,6 +81,7 @@ window.onload = function() {
 	initActivityCalendar();
 }
 
+// TODO: Make activity calendar its own class.
 var initActivityCalendar = function() {
 	var activity = document.getElementById('activity');
 	// TODO: Extract year start and end from set of dates.
@@ -88,9 +91,7 @@ var initActivityCalendar = function() {
 }
 
 var createCalendar = function(year) {
-	var svg = element.createSvg();
-	svg.setAttribute('height', '145');
-	svg.setAttribute('width', '1118');
+	var svg = element.createSvg('1118', '145');
 
 	var labels = element.createSvgGroup();
 	labels.appendChild(createYear(year));
@@ -132,7 +133,7 @@ var createCalendar = function(year) {
 		paths.appendChild(createPath(year, i));	
 	}
 
-	svg.appendChild(createDefs());
+	svg.appendChild(createReferenceElements());
 	svg.appendChild(labels);
 	svg.appendChild(dates);
 	svg.appendChild(paths);
@@ -308,34 +309,28 @@ var end = function() {
 	return 'Z';
 }
 
-var createDefs = function() {
-	var defs = element.createSvgDefs();
-	var pattern = element.createSvgPattern();
-	pattern.setAttribute('patternUnits', 'userSpaceOnUse');
-	pattern.setAttribute('x', 0);
-	pattern.setAttribute('y', 0);
-	pattern.setAttribute('width', 6);
-	pattern.setAttribute('height', 6);
-	pattern.setAttribute('viewBox', '0 0 4 4');
-
-	var rect = element.createSvgRect();
-	rect.setAttribute('fill', '#e8e8e8');
-	rect.setAttribute('x', 0);
-	rect.setAttribute('y', 0);
-	rect.setAttribute('width', 4);
-	rect.setAttribute('height', 4);
-
-	var g = element.createSvgGroup();
-	g.setAttribute('stroke', '#f8f8f8');
-	g.setAttribute('stroke-linecap', 'square');
-
-	g.appendChild(element.createSvgLine(2, 0, 0, 2));
-	g.appendChild(element.createSvgLine(4, 2, 2, 4));
-	pattern.appendChild(rect);
-	pattern.appendChild(g);
-	defs.appendChild(pattern);
-
-	pattern.setAttribute('id', '_ABSTRACT_RENDERER_ID_0');
-	return defs;
-}
-
+var createReferenceElements = function() {
+    return element.createSvgDefs()
+        .add(
+            element.createSvgPattern()
+                .setId('_ABSTRACT_RENDERER_ID_0')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('x', 0)
+                .attr('y', 0)
+                .attr('width', 6)
+                .attr('height', 6)
+                .attr('viewBox', '0 0 4 4')
+                .add(
+                    element.createSvgRect()
+                       .attr('fill', '#e8e8e8')
+                       .attr('x', 0)
+                       .attr('y', 0)
+                       .attr('width', 4)
+                       .attr('height', 4))
+                .add(
+                    element.createSvgGroup()
+                       .attr('stroke', '#f8f8f8')
+                       .attr('stroke-linecap', 'square')
+                       .add(element.createSvgLine(2, 0, 0, 2))
+                       .add(element.createSvgLine(4, 2, 2, 4))));
+};
