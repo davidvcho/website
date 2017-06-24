@@ -103,6 +103,12 @@ Date.prototype.isEquals = function(that) {
     return this.toString() == that.toString();
 };
 
+/** Returns whether this month/year has passed already. */
+Date.prototype.occurred = function() {
+    return this.getFullYear() < new Date().getFullYear() || 
+        this.getMonth() <= new Date().getMonth();
+};
+
 /*******************************************************************************
  *                                                                             *
  *                                  ELEMENT                                    *
@@ -198,12 +204,191 @@ function Calendar(year) {
 };
 
 Calendar.prototype = {
+    DAYS_: 'SMTWTFS',
+    MONTHS_: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
     toNode: function() {
         return element.createDiv(this.year_).add(this.createCalendar_());
     },
     createCalendar_: function() {
+        var labels = element.createSvgGroup().add(this.createYearLabel_());
 
-    }
+        if (this.year_ == 2015) { 
+            for (var i = 0; i < this.MONTHS_.length; i++) {
+                labels.add(this.createMonthLabel_(this.MONTHS_[i], i));
+            }
+        }
+
+        for (var i = 0; i < this.DAYS_.length; i++) {
+            labels.add(this.createDayLabel_(this.DAYS_[i], 30.2 + i * 18));
+        }
+
+        var dates = element.createSvgGroup();
+        var date = new Date(this.year_, 0 /** month */);
+        do {
+            dates.add(this.createDateSquare_(date, dates));
+        } while (date.incrementDays().getFullYear() == this.year_);
+
+        dates.onmouseleave = function() {
+            if (getElementById('hover-rect')) {
+                dates.removeLastChild();
+                getElementById(this.year_).removeLastChild();
+            }
+        }.bind(this);
+
+        var monthOutlines = element.createSvgGroup();
+        for (var i = 11; i >= 0; i--) {
+            monthOutlines.add(this.createMonthOutline_(i)); 
+        }
+
+        return element.createSvg('1118', '145')
+           .add(this.createReferenceElements_())
+           .add(labels)
+           .add(dates)
+           .add(monthOutlines);
+    },
+    createTextElement_: function(text, className, x, y) {
+        return element.createSvgText()
+            .addCssClass(className)
+            .setText(text)
+            .attr('x', x)
+            .attr('y', y);
+    },
+    createYearLabel_: function() {
+        return this.createTextElement_(this.year_, 'svg-text-year', 91, 122);
+    },
+    createMonthLabel_: function(month, x) {
+        return this.createTextElement_(
+            month, 'svg-text-month', 115 + 79 * x, 12);
+    },
+    createDayLabel_: function(day, y) {
+        return this.createTextElement_(day, 'svg-text-day', 61.5, y);
+    },
+    createDateSquare_: function(date, container) {
+        // Prevent date from changing within the scope of this function. 
+        date = new Date(date);
+
+        var x = this.getX_(date.getWeek());
+        var y = this.getY_(date.getDay());
+
+        var isActive = dateSet.has(date.toSlashString());
+
+        var rect = element.createSvgRect()
+           .addCssClass('svg-text-date')
+           .attr('width', 18)
+           .attr('height', 18)
+           .attr('stroke', '#ffffff')
+           .attr('stroke-width', 1)
+           .attr('fill', isActive ? '#c9dcfb' : 'url(#_ABSTRACT_RENDERER_ID_0)')
+           .attr('x', x)
+           .attr('y', y);
+
+        rect.onmouseenter = function() {
+            // Remove existing hovering popups.
+            if (getElementById('hover-rect')) {
+                container.removeLastChild();
+                getElementById(this.year_).removeLastChild();
+            }
+
+            // Add highlighted box.
+            container.add(
+                element.createSvgRect() 
+                    .setId('hover-rect')
+                    .attr('width', 18)
+                    .attr('height', 18)
+                    .attr('fill', isActive ? 'transparent' : '#fff')
+                    .attr('stroke', '#000')
+                    .attr('stroke-width', 2)
+                    .attr('x', x)
+                    .attr('y', y));
+
+            var left = x + 68 + 
+                getElementById('activity').getBoundingClientRect().left;
+            var top = y + 89 + 155 * (this.year_ - 2015) +
+                70 * (this.year_ == 2015 && date.getDay() < 2);
+
+            getElementById(this.year_).add(
+                document.createElement('div')
+                    .setId('activity-date')
+                    .setText(date.toDateString().substring(4))
+                    .attr('style', 'left:{0}px; top:{1}px'.format(left, top)));
+        }.bind(this);
+        return rect;
+    },
+    createMonthOutline_: function(month) {
+        var date = new Date(this.year_, month);
+        var week = date.getWeek();
+
+        var x = this.getX_(week);
+        var y = this.getY_(date.getDay());
+        
+        var path = new Path();
+        date.isSunday() ? // Draw _| if first date isn't Sunday.
+            path.startAt(x, y) : 
+            path.startAt(
+                this.getX_(week + 1), 
+                this.getY_(0)).vertical(y).horizontal(x);
+
+        // Draw down to bottom left corner.
+        path.vertical(this.getY_(7));
+
+        // Draw to bottom right corner, which is the last Saturday of the month.
+        var lastSaturday = 
+            new Date(this.year_, month + 1).roundUp().incrementDays(-1);
+        path.horizontal(this.getX_(lastSaturday.getWeek() + 1));
+
+        var lastDay = new Date(this.year_, month + 1).incrementDays(-1);
+        if (!lastDay.isSaturday()) {
+            // Draw Γ since we know this corner exists.
+            path
+                .vertical(this.getY_(lastDay.getDay() + 1))
+                .horizontal(this.getX_(lastDay.getWeek() + 1));
+        }
+
+        // Draw up to top right corner.
+        path.vertical(this.getY_(0)).end();
+
+        return element.createSvgPath()
+            .attr('stroke-width', 1)
+            .attr('fill', 'none')
+            .attr('d', path.toString())
+            .attr(
+                'stroke', 
+                new Date(this.year_, month).occurred() ? '#000' : '#c9c9c9');
+    },
+    createReferenceElements_: function() {
+        return element.createSvgDefs()
+            .add(
+                element.createSvgPattern()
+                    .setId('_ABSTRACT_RENDERER_ID_0')
+                    .attr('patternUnits', 'userSpaceOnUse')
+                    .attr('x', 0)
+                    .attr('y', 0)
+                    .attr('width', 6)
+                    .attr('height', 6)
+                    .attr('viewBox', '0 0 4 4')
+                    .add(
+                        element.createSvgRect()
+                           .attr('fill', '#e8e8e8')
+                           .attr('x', 0)
+                           .attr('y', 0)
+                           .attr('width', 4)
+                           .attr('height', 4))
+                    .add(
+                        element.createSvgGroup()
+                           .attr('stroke', '#f8f8f8')
+                           .attr('stroke-linecap', 'square')
+                           .add(element.createSvgLine(2, 0, 0, 2))
+                           .add(element.createSvgLine(4, 2, 2, 4))));
+    },
+    /** Computes x coordinate of the square representing a date on this week. */
+    getX_: function(week) {
+        return 71 + 18 * week;
+    },
+    /** Computes y coordinate of the square representing a date on this day. */
+    getY_: function(day) { 
+        return 17 + 18 * day;
+    },
 };
 
 var element = new Element();
@@ -216,208 +401,24 @@ window.onload = function() {
 
 // TODO: Make activity calendar its own class.
 var initActivityCalendar = function() {
+    var yearRange = getYearRange();
 	var activity = getElementById('activity');
 	// TODO: Extract year start and end from set of dates.
-	for (var i = 2015; i < 2018; i++) {
-		activity.add(element.createDiv(i).add(createCalendar(i)));
-        // activity.add(new Calendar().toNode());
+	for (var i = yearRange[0]; i <= yearRange[1]; i++) {
+        activity.add(new Calendar(i).toNode());
 	}
 }
-
-var DAYS = 'SMTWTFS';
-var MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
-              'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-
-var createCalendar = function(year) {
-	var labels = element.createSvgGroup().add(createYearLabel(year));
-
-    if (year == 2015) { 
-        for (var i = 0; i < MONTHS.length; i++) {
-            labels.add(createMonthLabel(MONTHS[i], i));
-        }
-    }
-
-	for (var i = 0; i < DAYS.length; i++) {
-		labels.add(createDayLabel(DAYS[i], 30.2 + i * 18));
-	}
-	
-	var dates = element.createSvgGroup();
-	var date = new Date(year, 0 /** month */);
-    do {
-        dates.add(createDateSquare(date, dates));
-    } while (date.incrementDays().getFullYear() == year);
-
-	dates.onmouseleave = function() {
-		if (getElementById('hover-rect')) {
-            dates.removeLastChild();
-			getElementById(year).removeLastChild();
-		}
-	}
-
-	var monthOutlines = element.createSvgGroup();
-	for (var i = 11; i >= 0; i--) {
-		monthOutlines.add(createMonthOutline(year, i));	
-	}
-
-    return element.createSvg('1118', '145')
-	   .add(createReferenceElements())
-	   .add(labels)
-	   .add(dates)
-	   .add(monthOutlines);
-}
-
-var createTextElement = function(text, className, x, y) {
-    return element.createSvgText()
-        .addCssClass(className)
-        .setText(text)
-        .attr('x', x)
-        .attr('y', y);
-};
-
-var createYearLabel = function(year) {
-    return createTextElement(year, 'svg-text-year', 91, 122);
-};
-
-var createMonthLabel = function(month, x) {
-    return createTextElement(month, 'svg-text-month', 115 + 79 * x, 12);
-};
-
-var createDayLabel = function(day, y) {
-    return createTextElement(day, 'svg-text-day', 61.5, y);
-};
-
-var createDateSquare = function(date, container) {
-    // Prevent date from changing within the scope of this function. 
-    date = new Date(date);
-
-    var x = getX(date.getWeek());
-    var y = getY(date.getDay());
-
-    var isActive = dateSet.has(date.toSlashString());
-
-	var rect = element.createSvgRect()
-	   .addCssClass('svg-text-date')
-	   .attr('width', 18)
-	   .attr('height', 18)
-	   .attr('stroke', '#ffffff')
-	   .attr('stroke-width', 1)
-       .attr('fill', isActive ? '#c9dcfb' : 'url(#_ABSTRACT_RENDERER_ID_0)')
-	   .attr('x', x)
-	   .attr('y', y);
-
-	rect.onmouseenter = function() {
-        var year = date.getFullYear();
-        // Remove existing hovering popups.
-		if (getElementById('hover-rect')) {
-			container.removeLastChild();
-			getElementById(year).removeLastChild();
-		}
-
-        // Add highlighted box.
-        container.add(
-            element.createSvgRect() 
-                .setId('hover-rect')
-                .attr('width', 18)
-                .attr('height', 18)
-                .attr('fill', isActive ? 'transparent' : '#fff')
-                .attr('stroke', '#000')
-                .attr('stroke-width', 2)
-                .attr('x', x)
-                .attr('y', y));
-
-        var left = 
-            x + 68 + getElementById('activity').getBoundingClientRect().left;
-		var top = y + 89 + 155 * (year - 2015) +
-            70 * (year == 2015 && date.getDay() < 2);
-
-		getElementById(year).add(
-            document.createElement('div')
-                .setId('activity-date')
-                .setText(date.toDateString().substring(4))
-                .attr('style', 'left: {0}px; top: {1}px'.format(left, top)));
-	}
-
-	return rect;
-};
-
-/** Computes x coordinate of the square representing a date at this week. */
-var getX = function(week) {
-	return 71 + 18 * week;
-};
-
-/** Computes y coordinate of the square representing a date at this day. */
-var getY = function(day) { 
-	return 17 + 18 * day;
-};
-
-var createMonthOutline = function(year, month) {
-    var date = new Date(year, month);
-    var week = date.getWeek();
-
-	var x = getX(week);
-	var y = getY(date.getDay());
-	
-    var path = new Path();
-    date.isSunday() ? // Draw _| if first date isn't Sunday.
-        path.startAt(x, y) : 
-        path.startAt(getX(week + 1), getY(0)).vertical(y).horizontal(x);
-
-    // Draw down to bottom left corner.
-    path.vertical(getY(7));
-
-    // Draw to bottom right corner, which is the last Saturday of the month.
-    var lastSaturday = new Date(year, month + 1).roundUp().incrementDays(-1);
-    path.horizontal(getX(lastSaturday.getWeek() + 1));
-
-    var lastDay = new Date(year, month + 1).incrementDays(-1);
-    if (!lastDay.isSaturday()) {
-        // Draw Γ since we know this corner exists.
-        path
-            .vertical(getY(lastDay.getDay() + 1))
-            .horizontal(getX(lastDay.getWeek() + 1));
-    }
-
-    // Draw up to top right corner.
-    path.vertical(getY(0)).end();
-
-    return element.createSvgPath()
-        .attr('stroke-width', 1)
-        .attr('fill', 'none')
-        .attr('d', path.toString())
-        .attr('stroke', datePassed(month, year) ? '#000' : '#c9c9c9');
-}
-
-/** Returns whether this month/year has passed already. */
-var datePassed = function(month, year) {
-    return year < new Date().getFullYear() || month <= new Date().getMonth();
-};
-
-var createReferenceElements = function() {
-    return element.createSvgDefs()
-        .add(
-            element.createSvgPattern()
-                .setId('_ABSTRACT_RENDERER_ID_0')
-                .attr('patternUnits', 'userSpaceOnUse')
-                .attr('x', 0)
-                .attr('y', 0)
-                .attr('width', 6)
-                .attr('height', 6)
-                .attr('viewBox', '0 0 4 4')
-                .add(
-                    element.createSvgRect()
-                       .attr('fill', '#e8e8e8')
-                       .attr('x', 0)
-                       .attr('y', 0)
-                       .attr('width', 4)
-                       .attr('height', 4))
-                .add(
-                    element.createSvgGroup()
-                       .attr('stroke', '#f8f8f8')
-                       .attr('stroke-linecap', 'square')
-                       .add(element.createSvgLine(2, 0, 0, 2))
-                       .add(element.createSvgLine(4, 2, 2, 4))));
-};
 
 var getElementById = function(id) {
     return document.getElementById(id);
+};
+
+var getYearRange = function() {
+    var set = new Set();
+    var re = /(\d{1,2})\/(\d{1,2})\/(\d{1,2})/;
+    for (let item of dateSet) {
+        set.add(re.exec(item)[3]);
+    }
+    var years = [...set].sort().map(year => '20' + year);
+    return [years[0], years[years.length - 1]];
 };
