@@ -22,6 +22,7 @@ body {
 
 #activity {
 	padding-left: 50px;
+	padding-bottom: 30px;
 }
 
 svg {
@@ -34,14 +35,18 @@ svg {
 
 .svg-text-year {
 	font-size: 56px;
+	fill: #dfdfdf;
+	transform:  translate(-75px, 170px) rotate(270deg);
 }
 
 .svg-text-day {
 	font-size: 12px;
+	fill: #888888;
 }
 
 .svg-text-month {
 	font-size: 14px;
+	fill: #888888;
 }
 
 #activity-date {
