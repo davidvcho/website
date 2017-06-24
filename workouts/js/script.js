@@ -52,21 +52,38 @@ Date.prototype.MS_PER_DAY = 1000 * 3600 * 24;
 
 /** Returns the date's week number. The first day of the year is week 0. */
 Date.prototype.getWeek = function() {
-    var firstSunday = new Date(this.getFullYear(), 0).roundDown();
-    var thisSunday = this.roundDown();
+    var firstSunday = new Date(this.getFullYear(), 0).roundUp();
+    var thisSunday = this.roundUp();
     return Math.ceil(
         (thisSunday.getTime() - firstSunday.getTime()) / this.MS_PER_DAY) / 7;
 };
 
 /** Returns the most recent Sunday. */
-Date.prototype.roundDown = function() {
+Date.prototype.roundUp = function() {
     return new Date(this).incrementDays(-this.getDay());
-}
+};
+
+/** Returns the next Saturday. */
+Date.prototype.roundDown = function() {
+    return new Date(this).incrementDays(6 - this.getDay());
+};
 
 Date.prototype.toSlashString = function() {
     return '{0}/{1}/{2}'
         .format(this.getMonth() + 1, this.getDate(), this.getFullYear() % 100);
-}
+};
+
+Date.prototype.isSunday = function() {
+    return this.getDay() == 0;
+};
+
+Date.prototype.isSaturday = function() {
+    return this.getDay() == 6;
+};
+
+Date.prototype.isEquals = function(that) {
+    return this.toString() == that.toString();
+};
 
 /** Helper class to create HTML elements. */
 function Element() {
@@ -128,17 +145,11 @@ Path.prototype = {
     startAt: function(x, y) {
         return this.move_('M ' + x + ' ' + y + ' ');
     },
-    up: function(y) {
+    vertical: function(y) {
         return this.move_('V ' + y + ' ');
     },
-    down: function(y) {
-        return this.up(-y);
-    },
-    left: function(x) {
+    horizontal: function(x) {
         return this.move_('H ' + x + ' ');
-    },
-    right: function(x) {
-        return this.left(-x);
     },
     end: function() {
         return this.move_('Z');
@@ -290,49 +301,39 @@ var getY = function(day) {
 };
 
 var createMonthOutline = function(year, month) {
-	var first = new Date(year, month, 1);
+    var date = new Date(year, month);
+    var week = date.getWeek();
 
-	var firstSunday = new Date(year, 0, 1);
-	firstSunday.setDate(firstSunday.getDate() - firstSunday.getDay());
-
-	var sunday = new Date(year, month, 1);
-	sunday.setDate(sunday.getDate() - sunday.getDay());
-
-	var days = Math.ceil((sunday.getTime() - firstSunday.getTime()) / (1000 * 3600 * 24));
-	var weeks = days / 7;
-
-	var x1 = getX(weeks);
-	var y1 = getY(first.getDay());
-
-	var pathString = first.getDate() != 0 ? start(getX(weeks+1), getY(0)) + vertical(y1) + horizontal(x1) : start(x1, y1);
-
-	// At first saturday
-	first = new Date(year, month, 7 - first.getDay());
-	var y2 = getY(first.getDay() + 1);
-
-	var last = first;
-
-	do {
-		last = new Date(year, month, last.getDate() + 7);
-	} while (new Date(year, month, last.getDate() + 7).getMonth() == month);
-
-	weeks += (last.getDate() - first.getDate()) / 7;
-	var x2 = getX(weeks+1);
-	pathString += vertical(y2) + horizontal(x2);
-
-	last = new Date(year, month + 1, 1);
-	last.setDate(last.getDate() - 1);
+	var x = getX(week);
+	var y = getY(date.getDay());
 	
-	if (last.getDay() != 6) {
-		pathString += vertical(getY(last.getDay() + 1)) + horizontal(getX(weeks + 2));
-	}
+    var path = new Path();
+    date.isSunday() ? // Draw _| if first date isn't Sunday.
+        path.startAt(x, y) : 
+        path.startAt(getX(week + 1), getY(0)).vertical(y).horizontal(x);
 
-	pathString += vertical(getY(0)) + end();
+    // Draw down to bottom left corner.
+    path.vertical(getY(7));
+
+    // Draw to bottom right corner, which is the last Saturday of the month.
+    var lastSaturday = new Date(year, month + 1).roundUp().incrementDays(-1);
+    path.horizontal(getX(lastSaturday.getWeek() + 1));
+
+    var lastDay = new Date(year, month + 1).incrementDays(-1);
+    if (!lastDay.isSaturday()) {
+        // Draw Γ since we know this corner exists.
+        path
+            .vertical(getY(lastDay.getDay() + 1))
+            .horizontal(getX(lastDay.getWeek() + 1));
+    }
+
+    // Draw up to top right corner.
+    path.vertical(getY(0)).end();
 
     return element.createSvgPath()
         .attr('stroke-width', 1)
         .attr('fill', 'none')
-        .attr('d', pathString)
+        .attr('d', path.toString())
         .attr('stroke', datePassed(month, year) ? '#000' : '#c9c9c9');
 }
 
@@ -340,22 +341,6 @@ var createMonthOutline = function(year, month) {
 var datePassed = function(month, year) {
     return year < new Date().getFullYear() || month <= new Date().getMonth();
 };
-
-var start = function(x, y) {
-	return 'M {0} {1} '.format(x, y);
-}
-
-var vertical = function(y) {
-	return 'V {0} '.format(y);
-}
-
-var horizontal = function(x) {
-	return 'H {0} '.format(x);
-}
-
-var end = function() {
-	return 'Z';
-}
 
 var createReferenceElements = function() {
     return element.createSvgDefs()
