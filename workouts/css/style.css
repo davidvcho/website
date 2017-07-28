@@ -11,7 +11,26 @@ body {
 	padding: 8px;
 	width: 1150px;
 	margin: auto;
+	margin-top: 15px;
+}
+
+.card-div {
+	width: 1166px;
+	margin: auto;
+}
+
+.first.card {
 	margin-top: 65px;
+}
+
+.card.half {
+	width: 559px;
+	float: left;
+}
+
+.card.half:first-child {
+	float: left;
+	margin-right: 15px;
 }
 
 .card-title {
