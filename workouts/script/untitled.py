@@ -1,4 +1,4 @@
-EXERCISES = {
+{
 	'Incline Db': 'Incline Dumbbell Bench Press',
 	'Side bend': 'Dumbbell Side Bend',
 	'Incline flies': 'Incline Dumbbell Flyes',
@@ -9,11 +9,11 @@ EXERCISES = {
 	'Tbar curl': 'Tbar Curl',
 	'Box squats': 'Box Squat',
 	'Shrugs': 'Shoulder Shrugs',
-	'Stiff legged': 'Stiff-Legged Deadlift',
+	'Stiff legged': 'Stiff Legged Deadlift',
 	'Overhead tricep extension': 'Overhead Cable Tricep Extension',
 	'Round chin-ups': 'Chinup Circle',
 	'Chin-ups': 'Chinup',
-	'Close grip bench': 'Close-Grip Bench Press',
+	'Close grip bench': 'Close-Grip Barbell Bench Press',
 	'Lunges': 'Lunge',
 	'Db row': 'Dumbbell Row',
 	'Deadlift': 'Deadlift',
@@ -37,7 +37,7 @@ EXERCISES = {
 	'Curl': 'Dumbbell Curl',
 	'Wall sit': 'Wall Sit',
 	'Preacher curls': 'Preacher Curl',
-	'Pullups': 'Pullup',
+	'Pullups': 'Pullups',
 	'Double cable curl': 'Double Cable Curl',
 	'Curls': 'Dumbbell Curl',
 	'Split squats': 'Bulgarian Split Squat',
@@ -45,7 +45,7 @@ EXERCISES = {
 	'Drag curls': 'Barbell Drag CUrl',
 	'Frontal raise': 'Dumbbell Front Raise',
 	'Bicep curl': 'Dumbbell Curl',
-	'Incline bench': 'Incline Bench Press',
+	'Incline bench': 'Incline Barbell Bench Press',
 	'Dumbbell bench': 'Dumbbell Bench Press',
 	'Longhead pull': 'Overhead Cable Tricep Extension',
 	'Biceps curls': 'Dumbbell Curl',
@@ -69,8 +69,8 @@ EXERCISES = {
 	'Cable curls': 'Cable Curl',
 	'Front': 'Dumbbell Front Raise',
 	'Overhead press': 'Military Press',
-	'Incline': 'Incline Bench Press',
-	'Floor bench': 'Floor Bench Press',
+	'Incline': 'Incline Barbell Bench Press',
+	'Floor bench': 'Floor Barbell Bench Press',
 	'Pull-up': 'Pullup',
 	'Planks': 'Plank',
 	'Deep Squat': 'Squat',
@@ -99,9 +99,9 @@ EXERCISES = {
 	'Wrist curls': 'Wrist Curl',
 	'Dumbbell incline': 'Incline Dumbbell Bench Press', 
 	'Front squats': 'Front Squat',
-	'Pullups strict': 'Pullup',
+	'Pullups strict': 'Pullups',
 	'Dips': 'Dips',
-	'Stuff deadlift': 'Stiff-Legged Deadlift',
+	'Stuff deadlift': 'Stiff Legged Deadlift',
 	'Farmer walks': 'Farmer Walk',
 	'Military press': 'Military Press',
 	'Bench': 'Barbell Bench Press',
@@ -113,7 +113,7 @@ EXERCISES = {
 	'Pull-ups': 'Pullups',
 	'Seated row': 'Cable Row',
 	'Chin-ups round': 'Chinup Circle',
-	'Pullups unweighted': 'Pullup',
+	'Pullups unweighted': 'Pullups',
 	'Concentration curl': 'Concentration Curl',
 	'Shoulder press': 'Dumbbell Shoulder Press',
 	'Db shoulders': 'Dumbbell Shoulder Press',
@@ -165,7 +165,7 @@ EXERCISES = {
 	'Barbell grip row': 'Barbell Row',
 	'Scapula raise': 'Scapular Raise',
 	'Rows': 'Dumbbell Row',
-	'Close grip': 'Close-Grip Bench Press',
+	'Close grip': 'Close-Grip Barbell Bench Press',
 	'Back press': 'Behind-the-Neck Military Press',
 	'Posterior raise': 'Dumbbell Posterior Shoulder Raise',
 	'Dumbbell press': 'Dumbbell Shoulder Press',
@@ -189,7 +189,7 @@ EXERCISES = {
 	'Reverse curl': 'Reverse Curl',
 	'Behind back': 'Behind-the-Neck Military Press',
 	'Lat pull down': 'Lat Pulldown',
-	'Bench P': 'Bench Press',
+	'Bench P': 'Barbell Bench Press',
 	'Military': 'Military Press',
 	'Pulldown': 'Tricep Rope Pulldown',
 	'Cable hammer curl': 'Cable Hammer Curl',
@@ -199,7 +199,7 @@ EXERCISES = {
 	'Mad abs': 'Abs',
 	'Lateral': 'Lateral Shoulder Raise',
 	'Power clean': 'Power Clean',
-	'Bench (pause)': 'Pause Bench Press',
+	'Bench (pause)': 'Pause Barbell Bench Press',
 	'Rear W': 'Dumbbell W Raise',
 	'Back raise': 'Dumbbell Posterior Shoulder Raise',
 	'Lat pulldown': 'Lat Pulldown',
@@ -238,7 +238,7 @@ EXERCISES = {
 	'Lat pulldown variations': 'Lat Pulldown',
 	'Cable row': 'Seated Cable Row',
 	'Close grip pulldown': 'Lat Pulldown',
-	'Rear': 'Dumbbell Posterior Shoulder Raise',
+	'Rear': 'Posterior Shoulder Raise',
 	'Back shoulder press': 'Behind-the-Neck Military Press',
 	'Pulsed chinups': 'Pulsed Chinup',
 	'Wide pulldown': 'Lat Pulldown',
@@ -260,73 +260,10 @@ EXERCISES = {
 	'Reverse curl bar': 'Reverse Curl',
 	'Biceps suns': 'Curl',
 	'Tbar pull down': 'Lat Pulldown',
+	'Back': '',
 	'Low row': 'Seated Cable Row',
 	'Long pull': 'Seated Cable Row',
 	'Tbar': 'Tbar Curl',
 	'Crunch negatives': 'Crunch Negatives',
 	'Ab roller': 'Ab Roller',
-	'Sit-ups': 'Sit-ups',
-	'Leg Raise': 'Leg Raise',
-	'Russian Twist': 'Russian Twist',
-	'Arnold\'s': 'Arnold Shoulder Press',
-	'Circular chin-ups': 'Chinup Circle',
-	'Hanging Knee raise': 'Hanging Knee Raise',
-	'Deficit leg lifts': 'Leg Raise',
-	'Crunch': 'Crunch',
-	'Crunch Negative': 'Crunch Negatives',
-	'Toes-to-Bar': 'Toes-to-Bar',
-	'Reverse Crunch': 'Reverse Crunch',
-	'Hanging abs': 'Abs',
-	'Scapular Pulldown': 'Scapular Raise',
 }
-
-
-date = ''
-
-
-
-
-exercises = set()
-
-count = 0
-
-with open('data.txt', 'r') as data:
-	lines = data.readlines()
-
-	result = []
-	for l in lines:
-		line = l[:-1]
-
-		parts = line.split(' ')
-		if parts[0].count('/') == 2:
-			date = parts[0]
-			print ''
-			print date
-
-			if len(parts) > 1:
-				weight = parts[1]
-				print 'Weight:', weight
-
-			continue
-
-		lift = ''
-		j = 100
-		for i, part in enumerate(parts):
-			if part[0] in '0123456789':
-				j = i
-				break
-		lift = ' '.join(parts[:j]).strip()
-		reps = ' '.join(parts[j:]).strip()
-
-		print EXERCISES[lift], reps
-		# if lift not in EXERCISES:
-			# print date, '\'', lift, '\'', reps
-			# print line
-
-		# if lift in EXERCISES:
-		# 	print EXERCISES[lift]
-		# print "{0:>8}".format(date) + '\t' + lift
-
-		# exercises.add(EXERCISES[lift] if lift in EXERCISES else lift)
-
-print exercises

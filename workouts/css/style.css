@@ -17,6 +17,7 @@ body {
 .card-div {
 	width: 1166px;
 	margin: auto;
+	margin-bottom: 100px;
 }
 
 .first.card {
@@ -78,4 +79,34 @@ svg {
     color: #616161;
     background-color: white;
     position: absolute;
+}
+
+.bars div {
+  font: 10px sans-serif;
+  background-color: rgb(201, 220, 251);
+  text-align: right;
+  padding: 4px;
+  margin: 3px;
+  color: black;
+  /*border: 1px solid black;*/
+}
+
+.chart {
+	padding: 16px;
+}
+
+.bars {
+	margin-left: 30px;
+}
+
+.axis {
+	width: 40px;
+	text-align: center;
+	float: left;
+}
+
+.axis div {
+	padding: 4px;
+	margin: 3px;
+	font: 10px sans-serif;
 }
