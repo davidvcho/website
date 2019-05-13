@@ -480,12 +480,15 @@ MonthCard.prototype = {
     var count = {};
     for (let item of dateSet) {
       var date = new Date(item);
-      var month = date.getMonth();
+      var month = date.getMonth() + 1;
       var year = date.getFullYear();
-      var key = year * 100 + month;
 
+      month = month < 10 ? ('0' + month) : month;
+      var key = year + '-' + month;
       count[key] = (count[key] || 0) + 1;
     }
+
+    
 
     // var max = Math.max.apply(null, data);
     // var days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];

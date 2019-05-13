@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="css/poker.css">
+	<script type="text/javascript" src="js/poker.js"></script>
+	<title>Poker</title>
+</head>
+<body>
+	<div class="body">
+		<div class="container">
+			<table id="allHoleCards"></table>
+			<div class="slidecontainer">
+				<p>
+					<span id="totalCombosSelected">0</span>
+					combos in preflop range
+					(<span id="rangePercent">0</span>%)
+				</p>
+				<input type="range" min="0" max="100" value="0" class="slider" id="rangeSlider">
+			</div>
+			<div id="positionContainer">
+				<span>Range for position</span>
+				<select id="position">
+					<option value="none">None</option>
+					<option value="utg">UTG</option>
+					<option value="hj">HJ</option>
+					<option value="co">CO</option>
+					<option value="button">Button</option>
+					<option value="smallblind">Small Blind</option>
+				</select>
+				3bet percentage: <span id="threebetPercent">0</span>%
+			</div>
+		</div>
+
+		<div class="container">
+			<p>Board</p>
+			<table id="flopCards"></table>
+
+			<button id="randomButton">Random</button>
+			<button id="clearButton">Clear</button>
+		</div>
+
+		<div id="statisticsContainer">
+			<p>Statistics</p>
+			<table class="percents">
+				<tr>
+					<td>Quads</td>
+					<td><span id="percentQuads">0.00</span>%</td>
+					<td><span id="cumulativeQuads">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Full House</td>
+					<td><span id="percentFullHouse">0.00</span>%</td>
+					<td><span id="cumulativeFullHouse">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Flush</td>
+					<td><span id="percentFlush">0.00</span>%</td>
+					<td><span id="cumulativeFlush">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Straight</td>
+					<td><span id="percentStraight">0.00</span>%</td>
+					<td><span id="cumulativeStraight">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Set</td>
+					<td><span id="percentSet">0.00</span>%</td>
+					<td><span id="cumulativeSet">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Two Pair</td>
+					<td><span id="percentTwoPair">0.00</span>%</td>
+					<td><span id="cumulativeTwoPair">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Overpair</td>
+					<td><span id="percentOverpair">0.00</span>%</td>
+					<td><span id="cumulativeOverpair">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Top Pair</td>
+					<td><span id="percentTopPair">0.00</span>%</td>
+					<td><span id="cumulativeTopPair">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Middle Pair</td>
+					<td><span id="percentMiddlePair">0.00</span>%</td>
+					<td><span id="cumulativeMiddlePair">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Bottom Pair</td>
+					<td><span id="percentBottomPair">0.00</span>%</td>
+					<td><span id="cumulativeBottomPair">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>Ace High</td>
+					<td><span id="percentAceHigh">0.00</span>%</td>
+					<td><span id="cumulativeAceHigh">0.00</span>%</td>
+				</tr>
+				<tr>
+					<td>No Made Hands</td>
+					<td><span id="percentNoMadeHands">0.00</span>%</td>
+					<td><span id="cumulativeNoMadeHands">0.00</span>%</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

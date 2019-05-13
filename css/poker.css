@@ -1,0 +1,166 @@
+body {
+	font-family: 'Helvetica';
+}
+
+#allHoleCards {
+	border-spacing: 0;
+	margin: auto;
+}
+
+#allHoleCards, .holeCards {
+	border: 0.5px solid black;
+}
+
+.body {
+	display: flex;
+	justify-content: center;
+}
+
+.container {
+	padding-right: 50px;
+}
+
+.card {
+	border: 1px solid black;
+	border-radius: 5px;
+	padding: 4px;
+	text-align: center;
+}
+
+.hearts {
+	background-color: #FFC8B8;
+}
+
+.clubs {
+	background-color: #9DFFAF;
+}
+
+.diamonds {
+	background-color: #AAD6FF;
+}
+
+.spades {
+	background-color: #B8B8B8;
+}
+
+.heartsSelected {
+	background-color: #FF3737;
+}
+
+.clubsSelected {
+	background-color: #00C205;
+}
+
+.diamondsSelected {
+	background-color: #016DD1;
+}
+
+.spadesSelected {
+	background-color: #555555;
+}
+
+.holeCards {
+	padding: 5px;
+	font-size: 18px;
+	width: 40px;
+	height: 40px;
+	text-align: center;
+	background-color: #1C1E2A;
+	color: white;
+	font-family: 'Helvetica';
+	cursor: pointer;
+	user-select: none;
+}
+
+#positionContainer {
+	text-align: center;
+	margin-top: 20px;
+}
+
+.selectedHoleCardsG {
+	background-color: #29D09C;
+}
+
+.selectedHoleCardsY {
+	background-color: #FFFF99;
+	color: black;
+}
+
+.selectedHoleCardsR {
+	background-color: #FF9999;
+}
+
+.selectedHoleCards3bet {
+	background-color: #2B60DE;
+	color: white;
+}
+
+.slidecontainer {
+	margin: auto;
+	padding-top: 20px;
+	width: 50%;
+	text-align: center;
+}
+
+.slider {
+	-webkit-appearance: none;
+	width: 100%;
+	height: 15px;
+	background: #d3d3d3;
+	outline: none;
+	opacity: 0.7;
+	-webkit-transition: .2s;
+	transition: opacity .2s;
+}
+
+.slider:hover {
+	opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 25px;
+	height: 25px;
+	background: #29D09C;
+	cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+	width: 25px;
+	height: 25px;
+	background: #29D09C;
+	cursor: pointer;
+}
+
+#statisticsContainer {
+	min-width: 280px;
+}
+
+.percents td:nth-child(1), .percents td:nth-child(2) {
+	padding-right: 15px;
+}
+
+.percents td:nth-child(2), .percents td:nth-child(3) {
+	text-align: right;
+}
+
+#clearButton, #randomButton {
+	background-color: #29D09C;
+	border: none;
+	color: white;
+	padding: 8px;
+	width: 65px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	margin: 10px 2px 4px 2px;
+	cursor: pointer;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+}
+
+#clearButton:hover, #randomButton:hover {
+  box-shadow: 0 5px 8px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19);
+}
