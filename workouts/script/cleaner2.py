@@ -244,7 +244,7 @@ count = 0
 
 workouts = {}
 
-with open('data2.txt', 'r') as data:
+with open('temp.txt', 'r') as data:
 	lines = data.readlines()
 
 	result = []

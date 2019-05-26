@@ -1,8 +1,9 @@
+# Map of exercises to be cleaned to their expected values.
 EXERCISES = {
 	'Incline Db': 'Incline Dumbbell Bench Press',
 	'Side bend': 'Dumbbell Side Bend',
 	'Incline flies': 'Incline Dumbbell Flyes',
-	'Leg raise hanging': 'Hanging Leg Raise',
+	'Leg raise hanging': 'Hanging Leg Rxaise',
 	'Overhead tri': 'Overhead Cable Tricep Extension',
 	'Incline curl': 'Incline Dumbbell Curl',
 	'Concentration': 'Concentration Curl',
@@ -280,47 +281,67 @@ EXERCISES = {
 	'Scapular Pulldown': 'Scapular Raise',
 }
 
-
-date = ''
-
-
-
-
 exercises = set()
 
-count = 0
+# The starting year of the exercises.
+start_year = 18
 
-with open('data.txt', 'r') as data:
+with open('temp.txt', 'r') as data:
+	# The last month encountered. This is used to determine whether we need to
+	# increment the year.
+	prev_month = None
+
 	lines = data.readlines()
 
-	result = []
 	for l in lines:
-		line = l[:-1]
-
-		parts = line.split(' ')
-		if parts[0].count('/') == 2:
-			date = parts[0]
-			print ''
-			print date
-
-			if len(parts) > 1:
-				weight = parts[1]
-				print 'Weight:', weight
-
+		# Ignore empty line.
+		if len(l) == 1:
 			continue
 
-		lift = ''
-		j = 100
-		for i, part in enumerate(parts):
-			if part[0] in '0123456789':
-				j = i
-				break
-		lift = ' '.join(parts[:j]).strip()
-		reps = ' '.join(parts[j:]).strip()
+		line = l[:-1]
+		parts = line.split(' ')
+		# print parts
 
-		print EXERCISES[lift], reps
+		count = 0
+		date = ''
+
+		# Verify dates, which have slashes.
+		if parts[0].count('/') > 0:
+			date = parts[0]
+			date_parts = date.split('/')
+			month = int(date_parts[0])
+
+			if len(date_parts) == 2:
+				# Missing the year at the end.
+				if prev_month is not None and month < prev_month:
+					# We're back at January.
+					start_year += 1
+				date_parts.append(str(start_year))
+				date = '/'.join(date_parts)
+
+			prev_month = month
+			print date
+
+			# Weight comes after date, if present.
+				
+			if len(parts) > 1:
+				weight = parts[1]
+				# print 'Weight:', weight
+
+		# 	continue
+
+		# lift = ''
+		# j = 100
+		# for i, part in enumerate(parts):
+		# 	if part[0] in '0123456789':
+		# 		j = i
+		# 		break
+		# lift = ' '.join(parts[:j]).strip()
+		# reps = ' '.join(parts[j:]).strip()
+
+		# # print EXERCISES[lift], reps
 		# if lift not in EXERCISES:
-			# print date, '\'', lift, '\'', reps
+		# 	print date, '\'', lift, '\'', reps
 			# print line
 
 		# if lift in EXERCISES:
@@ -329,4 +350,4 @@ with open('data.txt', 'r') as data:
 
 		# exercises.add(EXERCISES[lift] if lift in EXERCISES else lift)
 
-print exercises
+# print exercises
