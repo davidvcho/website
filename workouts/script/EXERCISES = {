@@ -2,10 +2,10 @@ Legs
 	Box Squat
 	Bulgarian Split Squat
 	Deadlift
-	Front Squat
+	Front Squat,
 	Glute-Ham Raise
 	Good Morning
-	Hip Thrust	
+	Hip Thrust
 	Lunge
 	Power Clean
 	Power Clean Pull
@@ -55,13 +55,12 @@ Bicep
 Back
 	Assisted Single-Armed Pullup
 	Barbell Row
-	Cable Row
 	Corner Barbell Row
 	Dumbbell Row
 	Face Pull
 	Dumbbell W Raise
 	Lat Pulldown
-	Pullup]
+	Pullup
 	Scapular Raise
 	Seated Cable Row
 	Single-Armed Barbell Row
@@ -88,7 +87,6 @@ Shoulders
 	Dumbbell Shoulder Press
 	Frontal Raise
 	Military Press
-	Posterior Shoulder Raise
 	Shoulder Shrugs
 	Standing Dumbbell Shoulder Press
 
@@ -106,7 +104,6 @@ Abs
 	Plank
 	Reverse Crunch
 	Russian Twist
-	Russian Twists
 	Sit-ups
 	Suns
 	Superman
