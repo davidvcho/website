@@ -1,0 +1,80 @@
+79
+ Come Together   ;      The Beatles    ;101
+Let It Be   ;    The Beatles      ;38
+  Revolution;      The Beatles      ;145
+      Get Back; The Beatles;19
+ Sad But True   ; Metallica;130
+    Whiskey In The Jar;      Metallica   ;8
+     Enter Sandman      ;     Metallica      ;65
+    The Unforgiven   ;   Metallica      ;16
+ One   ;     Metallica    ;26
+     The Memory Remains    ;     Metallica     ;29
+Wherever I May Roam    ;Metallica     ;40
+  Nothing Else Matters   ;      Metallica;9
+  Ain't My Bitch;  Metallica    ;87
+    Harvester Of Sorrow   ;Metallica  ;55
+The Unforgiven II ;    Metallica     ;118
+      Fade To Black    ;  Metallica    ;39
+   Turn The Page;  Metallica   ;138
+     King Nothing     ;   Metallica     ;56
+ For Whom The Bell Tolls;     Metallica;21
+  Welcome Home (Sanitarium)      ;Metallica  ;48
+  Hero Of The Day      ;     Metallica ;120
+     Until It Sleeps; Metallica   ;100
+     Fuel  ;      Metallica  ;116
+    Master Of Puppets     ;      Metallica    ;54
+     Run To The Hills  ;Iron Maiden  ;78
+ The Number Of The Beast   ;  Iron Maiden   ;32
+You Give Love A Bad Name    ; Bon Jovi  ;112
+     Livin' On A Prayer  ;     Bon Jovi    ;150
+    What Do You Got    ;    Bon Jovi      ;44
+Wanted Dead Or Alive;      Bon Jovi      ;154
+Who Says You Can't Go Home;      Bon Jovi      ;151
+    Summer Of '69  ;    Bryan Adams;50
+  (Everything I Do) I Do It For You    ;     Bryan Adams     ;143
+  Run To You    ;     Bryan Adams;31
+    Heaven    ;  Bryan Adams      ;23
+     Empty Spaces ;     Pink Floyd      ;13
+   Mother      ;Pink Floyd    ;25
+    Comfortably Numb  ;Pink Floyd      ;43
+ Brain Damage     ;     Pink Floyd ;76
+      Run Like Hell     ;   Pink Floyd     ;152
+     Young Lust     ;     Pink Floyd  ;135
+Another Brick In The Wall (Part 1);   Pink Floyd   ;95
+     Money   ;      Pink Floyd   ;117
+    Time   ;     Pink Floyd      ;147
+     Hey You  ;      Pink Floyd;83
+     Learning To Fly;  Pink Floyd;84
+  Have A Cigar    ;  Pink Floyd  ;7
+    Eclipse   ;  Pink Floyd    ;131
+   Another Brick In The Wall (Part 2) ;   Pink Floyd ;45
+Speak To Me\/Breathe     ;   Pink Floyd   ;140
+      Wish You Were Here  ;Pink Floyd     ;108
+      Welcome To The Machine ;     Pink Floyd    ;90
+  Touch Me;  The Doors    ;10
+      When I'm Gone ;   The Doors   ;136
+      Love Her Madly    ;  The Doors    ;157
+   Roadhouse Blues     ;The Doors    ;75
+  It's Not My Time   ; The Doors ;129
+     When You're Young    ;    The Doors ;96
+    Break On Through (To The Other Side)  ;     The Doors      ;6
+      Kryptonite      ;     The Doors ;128
+   People Are Strange ;   The Doors  ;1
+Here Without You  ;   The Doors;4
+      Breaking The Habit    ;      Linkin Park ;70
+     Bleed It Out ;  Linkin Park    ;15
+   What I've Done     ;  Linkin Park ;98
+  In The End;    Linkin Park ;81
+     Waiting For The End  ;   Linkin Park      ;34
+Crawling; Linkin Park;53
+ New Divide     ;Linkin Park      ;18
+  One Step Closer     ; Linkin Park      ;153
+    Lying From You  ;     Linkin Park;79
+    Faint      ;Linkin Park  ;85
+ Given Up;  Linkin Park    ;132
+      Somewhere I Belong;  Linkin Park     ;69
+  Numb      ;   Linkin Park  ;47
+Shadow Of The Day   ;  Linkin Park    ;156
+     No Love (w\/ Lil Wayne)  ;  Eminem;30
+      Not Afraid  ;     Eminem    ;91
+     Love The Way You Lie (w\/ Rihanna) ;      Eminem;94

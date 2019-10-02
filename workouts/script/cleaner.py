@@ -281,6 +281,9 @@ EXERCISES = {
 	'Scapular Pulldown': 'Scapular Raise',
 }
 
+def isNumber(char):
+	return char in '0123456789'
+
 exercises = set()
 
 # The starting year of the exercises.
@@ -292,6 +295,7 @@ with open('temp.txt', 'r') as data:
 	prev_month = None
 
 	lines = data.readlines()
+	date = ''
 
 	for l in lines:
 		# Ignore empty line.
@@ -299,11 +303,10 @@ with open('temp.txt', 'r') as data:
 			continue
 
 		line = l[:-1]
-		parts = line.split(' ')
+		parts = line.strip().split(' ')
 		# print parts
 
 		count = 0
-		date = ''
 
 		# Verify dates, which have slashes.
 		if parts[0].count('/') > 0:
@@ -320,28 +323,33 @@ with open('temp.txt', 'r') as data:
 				date = '/'.join(date_parts)
 
 			prev_month = month
-			print date
+			# print date
 
 			# Weight comes after date, if present.
-				
 			if len(parts) > 1:
 				weight = parts[1]
 				# print 'Weight:', weight
 
-		# 	continue
+			continue
 
-		# lift = ''
-		# j = 100
-		# for i, part in enumerate(parts):
-		# 	if part[0] in '0123456789':
-		# 		j = i
-		# 		break
-		# lift = ' '.join(parts[:j]).strip()
-		# reps = ' '.join(parts[j:]).strip()
+		# Lifts here.
+		# print parts
+
+		# Choose high number in case exercise does not have weight/reps after.
+		j = 100
+		for i, part in enumerate(parts):
+			if isNumber(part[0]):
+				j = i
+				break
+		lift = ' '.join(parts[:j]).strip()
+		# print lift
+		reps = ' '.join(parts[j:]).strip()
+		# print reps
 
 		# # print EXERCISES[lift], reps
-		# if lift not in EXERCISES:
-		# 	print date, '\'', lift, '\'', reps
+		if lift not in EXERCISES:
+			# print date, '\'', lift, '\'', reps
+			print '%s %s' % (date, lift)
 			# print line
 
 		# if lift in EXERCISES:

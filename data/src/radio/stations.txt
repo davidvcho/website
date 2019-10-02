@@ -1,0 +1,145 @@
+144
+    60s Pop Radio;203
+   Thrash Metal Radio    ;241
+ British Metal Radio      ;29
+    Classic Rock Radio     ;124
+  Pop Rock Radio  ;22
+  Progressive Rock Radio   ;237
+Psychedelic Rock Radio;81
+     Alternative Rock Radio     ;18
+  Rap Radio  ;178
+    Station0   ;215
+   Station1     ;86
+  Station2  ;92
+      Station3      ;156
+     Station4   ;74
+    Station5    ;181
+   Station6 ;16
+      Station7     ;250
+   Station8   ;105
+ Station9 ;75
+Station10   ;282
+   Station11     ;110
+    Station12;134
+Station13;46
+  Station14;82
+     Station15     ;194
+Station16 ;120
+Station17  ;114
+     Station18 ;111
+      Station19  ;253
+     Station20    ;9
+Station21  ;141
+      Station22    ;212
+     Station23  ;123
+ Station24     ;115
+   Station25   ;58
+     Station26 ;100
+ Station27      ;108
+ Station28  ;249
+   Station29    ;78
+Station30   ;254
+Station31      ;213
+     Station32     ;17
+    Station33      ;252
+      Station34  ;198
+   Station35     ;72
+ Station36;125
+    Station37 ;247
+     Station38    ;189
+   Station39;147
+     Station40      ;128
+ Station41  ;278
+      Station42   ;79
+  Station43      ;218
+  Station44 ;272
+    Station45     ;101
+  Station46;54
+  Station47    ;214
+   Station48  ;161
+Station49      ;196
+     Station50 ;167
+     Station51   ;225
+ Station52 ;152
+      Station53   ;116
+    Station54;281
+Station55;71
+     Station56    ;222
+     Station57    ;35
+ Station58     ;91
+Station59   ;269
+Station60;89
+   Station61 ;176
+     Station62  ;30
+ Station63    ;94
+    Station64     ;258
+      Station65    ;26
+   Station66     ;8
+      Station67;273
+   Station68   ;205
+ Station69  ;45
+   Station70    ;208
+  Station71  ;2
+Station72    ;211
+Station73      ;262
+ Station74   ;190
+    Station75;155
+  Station76  ;148
+     Station77 ;24
+      Station78      ;40
+     Station79      ;6
+  Station80  ;265
+   Station81    ;43
+   Station82      ;165
+Station83;80
+Station84    ;259
+Station85   ;119
+     Station86      ;102
+ Station87    ;66
+  Station88      ;172
+     Station89 ;150
+ Station90;162
+    Station91     ;166
+Station92     ;44
+      Station93;99
+      Station94  ;168
+    Station95   ;4
+ Station96;248
+      Station97   ;7
+    Station98 ;201
+    Station99;185
+   Station100      ;130
+    Station101     ;224
+      Station102 ;118
+Station103      ;77
+   Station104      ;216
+ Station105    ;139
+    Station106;21
+   Station107    ;3
+  Station108   ;39
+      Station109  ;145
+   Station110     ;226
+     Station111  ;283
+  Station112  ;87
+   Station113   ;95
+  Station114 ;173
+   Station115  ;219
+Station116;193
+  Station117      ;64
+  Station118  ;41
+ Station119      ;238
+      Station120      ;20
+      Station121      ;179
+      Station122 ;144
+ Station123    ;240
+  Station124    ;34
+    Station125  ;236
+   Station126     ;1
+    Station127      ;68
+ Station128;180
+   Station129;257
+  Station130;97
+    Station131  ;234
+    Station132  ;188
+Station133    ;232
+      Station134 ;65
